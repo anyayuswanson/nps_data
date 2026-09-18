@@ -258,7 +258,7 @@ ggplot() +
 
 
 #_______________________
-#GOAL: seasonal visits line graph
+#GOAL: seasonal visits line graph with 1 line color-coded sections
 
 # ------------------------------------------------------------
 # CREATE HELPER DATASET SO SEASONAL LINE SEGMENTS CONNECT
@@ -489,16 +489,19 @@ ggplot(
   
   # Format y-axis
   scale_y_continuous(
-    labels = scales::comma
-  ) +
+  labels = scales::comma,
+  limits = c(0, NA),
+  expand = c(0, 0)
+) +
   
   # Show every year on x-axis
   scale_x_continuous(
     breaks = seq(
       min(season_summary$season_year),
       max(season_summary$season_year),
-      by = 1
-    )
+      by = 1, 
+    ),
+    expand = c(0, 0)
   ) +
   
   labs(
@@ -638,7 +641,7 @@ geom_smooth(
     x = 2020.5,
     y = 68000,
     label = "COVID-19",
-    size = 4.5
+    angle = 90, hjust = 1, size = 4.5
   ) +
   
   # Dashed lines where visitor-count methods changed
@@ -694,6 +697,7 @@ geom_smooth(
   # Y-axis
   scale_y_continuous(
     labels = scales::comma,
+    limits = c(0, NA),
     expand = expansion(mult = c(0, 0.08))
   ) +
   
@@ -763,6 +767,9 @@ geom_smooth(
     ),
     legend.text = element_text(
       size = 14
+    ),
+    plot.caption = element_text(
+      size = 10
     )
   )
 

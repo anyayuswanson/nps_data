@@ -49,7 +49,16 @@ view(d3)
 filter(d3, statistic == "TRV")%>%
   ggplot(aes(x=year, y=annual_visits))+ 
   geom_line() +
+  
+  # geom_smooth(
+  #   method = "loess",
+  #   se = FALSE,
+  #   span = 0.5,
+  #   linewidth = 1.5
+  # ) +
+  
   scale_y_continuous(labels = scales::comma) +
+  
   labs(
     title = "Annual Recreational Visits to Channel Islands National Park",
     x = "Year",
@@ -369,14 +378,3 @@ ggplot(d6) +
     legend.title = element_text(size = 16, face = "bold"),
     legend.text = element_text(size = 14)
   )
-
-#-----------------------------
-d1 %>%
-  group_by(statistic, stat_desc) %>%
-  summarise(
-    total = sum(value, na.rm = TRUE),
-    max_value = max(value, na.rm = TRUE),
-    nonzero_months = sum(value > 0, na.rm = TRUE),
-    .groups = "drop"
-  ) %>%
-  arrange(desc(total))

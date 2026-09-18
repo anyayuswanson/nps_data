@@ -137,4 +137,30 @@ write_csv(
 #winter 2006 n=5 because data from December 2005 is missing from original file
 #Winter 1980 and Winter 2026 excluded because only have 3 months of data 
 
+#what is the highest visitor month?-----
+#averaging total monthly visits for each month across the whole record 1979-2025
+library(tidyverse)
+
+highest_month_overall <- d1 %>%
+  filter(statistic %in% c("TRV", "TNRV")) %>%
+  select(year, month, statistic, value) %>%
+  pivot_wider(
+    names_from = statistic,
+    values_from = value
+  ) %>%
+  mutate(
+    total_visits = TRV + TNRV
+  ) %>%
+  group_by(month) %>%
+  summarise(
+    mean_visits = mean(total_visits, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    month_name = month.name[month]
+  ) %>%
+  arrange(desc(mean_visits))
+
+highest_month_overall
+
 

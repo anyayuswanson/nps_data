@@ -53,7 +53,7 @@ missing_months_detail <- d1 %>%
 
 # -------------------------
 # Annual total visits dataset filtering for recreation and non-recreation visits and starting in 1980 ---------
-# Fig 1, 2
+# Fig 1, 3
 # -----------------------
 
 total_annual_use <- d1 %>%
